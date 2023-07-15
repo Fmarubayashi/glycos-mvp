@@ -20,7 +20,7 @@ const Profile: React.FC = () => {
   return (
     <main className="flex min-h-screen flex-col items-center pt-12">
       <h2 className="text-2xl">Dados do usuário</h2>
-      <div className="flex flex-col items-center pt-12 w-full justify-between ">
+      <div className="flex flex-col items-center pt-12 w-full justify-between">
         <span>Nome: {fullName()}</span>
         <span>Email: {user?.email}</span>
         <span>CPF: {cpfMask()}</span>
