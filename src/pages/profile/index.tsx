@@ -1,12 +1,14 @@
 import api from "@/services/api";
+import { Measure } from "@/types/Measure";
 import { User, UserRole, UserRoleLabel } from "@/types/User";
 import { useEffect, useState } from "react";
 
 const Profile: React.FC = () => {
   const [user, setUser] = useState<User>();
+  const [measures, setMeasures] = useState<Measure[]>([]);
 
   useEffect(() => {
-    async function getData() {
+    async function getUser() {
       try {
         const data = await api.getUserById("2");
         if (data) setUser(data);
@@ -14,8 +16,20 @@ const Profile: React.FC = () => {
         console.log(error);
       }
     }
-    getData();
+
+    async function getMeasures() {
+      try {
+        const data = await api.getMeasuresById("2");
+        if (data) setMeasures(data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getUser();
+    getMeasures();
   }, []);
+
+  console.log(measures);
 
   return (
     <main className="flex min-h-screen flex-col items-center pt-12">
