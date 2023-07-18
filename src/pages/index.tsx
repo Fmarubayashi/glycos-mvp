@@ -1,3 +1,6 @@
+import MeasureForm from "@/components/MeasureForm";
+import MeasureTable from "@/components/MeasureTable";
+
 import api from "@/services/api";
 import { Measure } from "@/types/Measure";
 import {
@@ -5,165 +8,61 @@ import {
   DatePicker,
   Form,
   InputNumber,
+  Modal,
   Select,
   TimePicker,
   message,
 } from "antd";
 import { Store } from "antd/es/form/interface";
 import { Inter } from "next/font/google";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const [visible, setVisible] = useState<boolean>(false);
+  const [measures, setMeasures] = useState<Measure[]>([]);
   const [form] = Form.useForm();
-  const [timePickerStatus, setTimePickerStatus] = useState<boolean>(false);
-  function onTimePickerSelect(value: any) {
-    form.setFieldsValue({
-      time_picker: value,
-    });
-  }
+
+  useEffect(() => {
+    getMeasures();
+  }, []);
+
   return (
     <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
+      className={`flex min-h-screen px-4 py-2 md:px-12 md:py-8 ${inter.className}`}
     >
-      <Form
-        form={form}
-        layout="vertical"
-        onFinish={handleFinish}
-        scrollToFirstError={true}
+      <Modal
+        title="Inserir medida manual"
+        open={visible}
+        onCancel={() => setVisible(false)}
+        footer={null}
       >
-        <Form.Item
-          label="Valor da glicemia"
-          required
-          name="value"
-          rules={[
-            {
-              required: true,
-              message: "Por favor, insira o valor da glicemia.",
-            },
-          ]}
+        <MeasureForm form={form} handleFinish={handleFinish} />
+      </Modal>
+      <div className="flex flex-col items-center">
+        <h1 className="text-xl mb-4">Medidas</h1>
+        <MeasureTable measures={measures} />
+      </div>
+
+      <div className="fixed bottom-12 right-12">
+        <button
+          className="w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center shadow-md hover:bg-blue-600"
+          onClick={() => setVisible(true)}
         >
-          <InputNumber placeholder="Valor da glicemia" />
-        </Form.Item>
-        <Form.Item
-          label="Está de jejum?"
-          required
-          name="fasting"
-          rules={[
-            {
-              required: true,
-              message: "Por favor, insira se está de jejum ou não",
-            },
-          ]}
-        >
-          <Select>
-            <Select.Option value={true} key="true">
-              <span>Sim</span>
-            </Select.Option>
-            <Select.Option value={false} key="false">
-              <span>Não</span>
-            </Select.Option>
-          </Select>
-        </Form.Item>
-        <Form.Item
-          label="Está praticando exercícios físicos?"
-          required
-          name="exercising"
-          rules={[
-            {
-              required: true,
-              message:
-                "Por favor, insira se está praticando exercícios físicos ou não",
-            },
-          ]}
-        >
-          <Select>
-            <Select.Option value={true} key="true">
-              <span>Sim</span>
-            </Select.Option>
-            <Select.Option value={false} key="false">
-              <span>Não</span>
-            </Select.Option>
-          </Select>
-        </Form.Item>
-        <Form.Item
-          label="Passou por estresse mental ou físico?"
-          required
-          name="stress"
-          rules={[
-            {
-              required: true,
-              message:
-                "Por favor, insira se passou por estresse mental ou físico ou não",
-            },
-          ]}
-        >
-          <Select>
-            <Select.Option value={true} key="true">
-              <span>Sim</span>
-            </Select.Option>
-            <Select.Option value={false} key="false">
-              <span>Não</span>
-            </Select.Option>
-          </Select>
-        </Form.Item>
-        <Form.Item
-          label="Está utilizando medicação corretamente?"
-          required
-          name="medication"
-          rules={[
-            {
-              required: true,
-              message:
-                "Por favor, insira se está utilizando medicação corretamente ou não",
-            },
-          ]}
-        >
-          <Select>
-            <Select.Option value={true} key="true">
-              <span>Sim</span>
-            </Select.Option>
-            <Select.Option value={false} key="false">
-              <span>Não</span>
-            </Select.Option>
-          </Select>
-        </Form.Item>
-        <Form.Item
-          label="Data da medida"
-          name="date_picker"
-          rules={[
-            { required: true, message: "Por favor, insira a data da medida." },
-          ]}
-        >
-          <DatePicker format="DD/MM/YY" showToday={true} inputReadOnly={true} />
-        </Form.Item>
-        <Form.Item
-          label="Horário da medida"
-          required
-          name="time_picker"
-          rules={[
-            {
-              required: true,
-              message: "Por favor, insira o horário estimado da medida",
-            },
-          ]}
-        >
-          <TimePicker
-            format="HH:mm"
-            minuteStep={10}
-            showMinute={true}
-            inputReadOnly={true}
-            open={timePickerStatus}
-            onClick={() => setTimePickerStatus(true)}
-            onBlur={() => setTimePickerStatus(false)}
-            onSelect={onTimePickerSelect}
-          />
-        </Form.Item>
-        <Button type="primary" htmlType="submit">
-          <span>Salvar</span>
-        </Button>
-      </Form>
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path d="M12 4v16m8-8H4"></path>
+          </svg>
+        </button>
+      </div>
     </main>
   );
 
@@ -182,11 +81,22 @@ export default function Home() {
 
     const results = await api.createMeasure(measureData);
     if (results) {
-      message.success("Visita salva com sucesso.");
+      setVisible(false);
+      message.success("Medida salva com sucesso.");
+      getMeasures();
     } else {
       message.error(
         "Houve um problema para salvar a medida, tente novamente mais tarde"
       );
+    }
+  }
+
+  async function getMeasures() {
+    try {
+      const data = await api.getMeasuresById("2");
+      if (data) setMeasures(data);
+    } catch (error) {
+      console.log(error);
     }
   }
 

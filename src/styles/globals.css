@@ -5,3 +5,7 @@
 main {
     background-color: #f6f3ed;
 }
+
+.ant-picker-ok {
+    display: none !important;
+}
