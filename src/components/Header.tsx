@@ -2,6 +2,7 @@ import Image from "next/image";
 import glycosLogo from "../../public/glycos.png";
 import cn from "classnames";
 import { useState } from "react";
+import Link from "next/link";
 
 const Header: React.FC = () => {
   const [isOn, setIsOn] = useState(false);
@@ -14,19 +15,19 @@ const Header: React.FC = () => {
     <header>
       <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-          <a href="/" className="flex items-center">
+          <Link href="/" className="flex items-center">
             <Image src={glycosLogo} alt="image" width={40} height={40} />
             <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
               Glycos
             </span>
-          </a>
+          </Link>
           <div className="flex items-center lg:order-2">
-            <a
+            <Link
               href="/profile"
               className="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800"
             >
               Perfil
-            </a>
+            </Link>
             <button
               type="button"
               className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
