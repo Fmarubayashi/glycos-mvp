@@ -12,7 +12,7 @@ const Profile: React.FC = () => {
         const data = await api.getUserById("2");
         if (data) setUser(data);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     }
     getUser();
