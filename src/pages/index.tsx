@@ -17,8 +17,6 @@ import { Store } from "antd/es/form/interface";
 import { Inter } from "next/font/google";
 import { useEffect, useState } from "react";
 
-const inter = Inter({ subsets: ["latin"] });
-
 export default function Home() {
   const [visible, setVisible] = useState<boolean>(false);
   const [measures, setMeasures] = useState<Measure[]>([]);
@@ -29,9 +27,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main
-      className={`flex min-h-screen px-4 py-2 md:px-12 md:py-8 ${inter.className}`}
-    >
+    <main className="flex min-h-screen px-4 py-2 md:px-12 md:py-8">
       <Modal
         title="Inserir medida manual"
         open={visible}
@@ -96,7 +92,7 @@ export default function Home() {
       const data = await api.getMeasuresById("2");
       if (data) setMeasures(data);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 
