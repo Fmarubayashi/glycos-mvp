@@ -27,6 +27,7 @@ const Observations: React.FC = () => {
           {observations[0]?.observation}
         </p>
         <p className="text-sm text-gray-500 mt-2">
+          -
           {observations[0]?.doctor.firstName +
             " " +
             observations[0]?.doctor.lastName}
