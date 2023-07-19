@@ -34,7 +34,7 @@ const MeasureForm = ({ form, handleFinish }: MeasureFormProps) => {
       scrollToFirstError={true}
     >
       <Form.Item
-        label="Valor da glicemia"
+        label="Valor da glicemia (mg/dL)"
         required
         name="value"
         rules={[

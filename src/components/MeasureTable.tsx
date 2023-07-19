@@ -28,7 +28,7 @@ const MeasureTable = ({ measures }: MeasureTableProps) => {
   }, []);
 
   const sortedMeasures = [...measures].sort(
-    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
   const columns: ColumnProps<Measure>[] = [
     {
@@ -40,7 +40,7 @@ const MeasureTable = ({ measures }: MeasureTableProps) => {
       ),
     },
     {
-      title: "Valor (mg/L)",
+      title: "Valor (mg/dL)",
       align: "center",
       key: "value",
       render: (measure: Measure) => <span>{measure.value}</span>,
@@ -101,6 +101,7 @@ const MeasureTable = ({ measures }: MeasureTableProps) => {
       columns={screenWidth && screenWidth < 560 ? columnsMobile : columns}
       dataSource={sortedMeasures}
       className="w-[90vw]"
+      key="table"
     />
   );
 
