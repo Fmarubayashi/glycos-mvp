@@ -49,7 +49,7 @@ const SoundPlayer: React.FC<SoundPlayerProps> = ({
             type="primary"
             className="bg-blue-500 flex items-center"
           >
-            Pause
+            Pausar
           </Button>
         ) : (
           <Button
