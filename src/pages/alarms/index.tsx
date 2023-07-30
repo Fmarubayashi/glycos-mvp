@@ -4,7 +4,7 @@ import { Card } from "antd";
 
 const Alarms: React.FC = () => {
   return (
-    <main className="flex min-h-screen flex-col px-12 items-center pt-12">
+    <main className="flex min-h-screen flex-col px-12 pt-4 items-center md:pt-8">
       <h4 className="text-xl">
         Frases de alarmes e seus respectivos efeitos sonoros
       </h4>

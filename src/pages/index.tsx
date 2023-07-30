@@ -27,7 +27,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="flex min-h-screen px-4 py-2 md:px-12 md:py-8">
+    <main className="flex min-h-screen px-4 py-8 md:px-12 md:py-8">
       <Modal
         title="Inserir medida manual"
         open={visible}

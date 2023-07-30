@@ -20,7 +20,7 @@ const Profile: React.FC = () => {
   }, []);
 
   return (
-    <main className="flex min-h-screen flex-col items-center pt-12">
+    <main className="flex min-h-screen flex-col items-center px-4 md:px-12 md:pt-8 pt-4">
       <h2 className="text-2xl">Dados do usuário</h2>
       <div className="flex flex-col items-center pt-12 w-full justify-between">
         <div className="flex items-center justify-center rounded-full bg-gray-200 w-1/4 h-1/4">
