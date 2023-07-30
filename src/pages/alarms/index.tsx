@@ -22,8 +22,8 @@ const Alarms: React.FC = () => {
           <div className="flex flex-col justify-between h-44">
             <p>
               O paciente deverá pressionar o botão no glicosímetro para
-              responder 'sim' caso esteja de jejum. Se a resposta for 'não'
-              apenas aguarde a próxima mensagem.
+              responder SIM caso esteja de jejum. Se a resposta for NÃO apenas
+              aguarde a próxima mensagem.
             </p>
             <SoundPlayer audioPath={AlertSounds.alert1} />
           </div>
@@ -35,8 +35,8 @@ const Alarms: React.FC = () => {
           <div className="flex flex-col justify-between h-44">
             <p>
               O paciente deverá pressionar o botão no glicosímetro para
-              responder 'sim' caso esteja praticamente exercícios físicos
-              regularmente. Se a resposta for 'não' apenas aguarde a próxima
+              responder SIM caso esteja praticamente exercícios físicos
+              regularmente. Se a resposta for NÃO apenas aguarde a próxima
               mensagem.
             </p>
             <SoundPlayer audioPath={AlertSounds.alert1} />
@@ -49,8 +49,8 @@ const Alarms: React.FC = () => {
           <div className="flex flex-col justify-between h-44">
             <p>
               O paciente deverá pressionar o botão no glicosímetro para
-              responder 'sim' caso tenha passado por algum estresse físico ou
-              mental recentemente. Se a resposta for 'não' apenas aguarde a
+              responder SIM caso tenha passado por algum estresse físico ou
+              mental recentemente. Se a resposta for NÃO apenas aguarde a
               próxima mensagem.
             </p>
             <SoundPlayer audioPath={AlertSounds.alert1} />
@@ -63,8 +63,8 @@ const Alarms: React.FC = () => {
           <div className="flex flex-col justify-between h-44">
             <p>
               O paciente deverá pressionar o botão no glicosímetro para
-              responder 'sim' caso esteja utilizando a medicação corretamente.
-              Se a resposta for 'não' apenas aguarde a próxima mensagem.
+              responder SIM caso esteja utilizando a medicação corretamente. Se
+              a resposta for NÃO apenas aguarde a próxima mensagem.
             </p>
             <SoundPlayer audioPath={AlertSounds.alert1} />
           </div>
