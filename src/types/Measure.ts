@@ -10,3 +10,14 @@ export interface Measure {
   created_at?: string;
   updated_at?: string;
 }
+export enum TrendType {
+  Increase = "increase",
+  Stabilize = "stabilize",
+  Descrease = "decrease",
+}
+
+export const TrendTypeLabels = {
+  [TrendType.Increase]: "Aumentar",
+  [TrendType.Stabilize]: "Estabilizar",
+  [TrendType.Descrease]: "Diminuir",
+};

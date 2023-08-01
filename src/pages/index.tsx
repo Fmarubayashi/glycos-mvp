@@ -21,6 +21,7 @@ export default function Home() {
   const [visible, setVisible] = useState<boolean>(false);
   const [measures, setMeasures] = useState<Measure[]>([]);
   const [form] = Form.useForm();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     getMeasures();
@@ -34,7 +35,11 @@ export default function Home() {
         onCancel={() => setVisible(false)}
         footer={null}
       >
-        <MeasureForm form={form} handleFinish={handleFinish} />
+        <MeasureForm
+          form={form}
+          handleFinish={handleFinish}
+          isLoading={isLoading}
+        />
       </Modal>
       <div className="flex flex-col items-center">
         <h1 className="text-xl mb-4">Medidas</h1>
@@ -63,6 +68,7 @@ export default function Home() {
   );
 
   async function handleFinish(values: Store) {
+    setIsLoading(true);
     const date_time = formatMomentToDate(values);
 
     const measureData: Partial<Measure> = {
@@ -80,6 +86,7 @@ export default function Home() {
       setVisible(false);
       message.success("Medida salva com sucesso.");
       getMeasures();
+      setIsLoading(false);
     } else {
       message.error(
         "Houve um problema para salvar a medida, tente novamente mais tarde"

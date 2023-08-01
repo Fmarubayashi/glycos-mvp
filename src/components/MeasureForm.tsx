@@ -1,27 +1,22 @@
-import api from "@/services/api";
-import { Measure } from "@/types/Measure";
 import {
+  Button,
+  DatePicker,
   Form,
   InputNumber,
   Select,
-  DatePicker,
   TimePicker,
-  Button,
-  message,
 } from "antd";
 import { RangePickerProps } from "antd/es/date-picker";
-import form from "antd/es/form";
-import { Store } from "antd/es/form/interface";
-import moment from "moment";
-import { useState } from "react";
 import dayjs from "dayjs";
+import { useState } from "react";
 
 interface MeasureFormProps {
   handleFinish: any;
   form: any;
+  isLoading: boolean;
 }
 
-const MeasureForm = ({ form, handleFinish }: MeasureFormProps) => {
+const MeasureForm = ({ form, handleFinish, isLoading }: MeasureFormProps) => {
   const [timePickerStatus, setTimePickerStatus] = useState<boolean>(false);
   const disabledDate: RangePickerProps["disabledDate"] = (current) => {
     return current && current > dayjs().endOf("day");
@@ -168,9 +163,22 @@ const MeasureForm = ({ form, handleFinish }: MeasureFormProps) => {
           showNow={false}
         />
       </Form.Item>
-      <Button htmlType="submit" type="primary" className="bg-blue-500">
-        <span>Salvar</span>
-      </Button>
+      <div className="flex space-x-3">
+        <Button
+          htmlType="submit"
+          type="primary"
+          className="bg-blue-500"
+          loading={isLoading}
+        >
+          <span>Salvar</span>
+        </Button>
+        {isLoading && (
+          <span className="text-xs text-gray-800">
+            Estamos calculando a tendência da sua glicemia, isso pode demorar
+            até 1 minuto!
+          </span>
+        )}
+      </div>
     </Form>
   );
 
