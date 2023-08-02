@@ -1,4 +1,11 @@
-import { Line } from "@ant-design/plots";
+import dynamic from "next/dynamic";
+
+const DynamicLineChart = dynamic(
+  () => import("@ant-design/plots").then((item) => item.Line),
+  {
+    ssr: false,
+  }
+);
 
 const ChartsPage: React.FC = () => {
   const data = [
@@ -19,7 +26,13 @@ const ChartsPage: React.FC = () => {
   return (
     <div style={{ padding: "20px" }}>
       <h1>Line Chart Example</h1>
-      <Line {...config} data={data} xField="x" yField="y" animation={false} />
+      <DynamicLineChart
+        {...config}
+        data={data}
+        xField="x"
+        yField="y"
+        animation={false}
+      />
     </div>
   );
 };
