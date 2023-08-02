@@ -30,7 +30,6 @@
     "webpack": "^4.46.0"
   },
   "devDependencies": {
-    "ts-loader": "^9.4.4",
     "webpack-node-externals": "^3.0.0"
   }
 }
