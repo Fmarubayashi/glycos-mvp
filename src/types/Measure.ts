@@ -7,13 +7,14 @@ export interface Measure {
   medication: boolean;
   user: any;
   date: Date;
+  trend?: TrendType;
   created_at?: string;
   updated_at?: string;
 }
 export enum TrendType {
-  Increase = "increase",
-  Stabilize = "stabilize",
-  Descrease = "decrease",
+  Descrease = 1,
+  Stabilize = 2,
+  Increase = 3,
 }
 
 export const TrendTypeLabels = {

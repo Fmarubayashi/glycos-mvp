@@ -1,5 +1,5 @@
 import api from "@/services/api";
-import { Measure } from "@/types/Measure";
+import { Measure, TrendType, TrendTypeLabels } from "@/types/Measure";
 import { format } from "date-fns";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
@@ -31,16 +31,8 @@ const ChartsPage: React.FC = () => {
   );
 
   // Calculate the date two months ago from today
-  const currentDate = new Date();
-  const twoMonthsAgo = new Date();
-  twoMonthsAgo.setMonth(currentDate.getMonth() - 2);
 
-  // Filter measures to include only the past two months
-  const pastTwoMonthsMeasures = sortedMeasures.filter(
-    (measure) => new Date(measure.date) >= twoMonthsAgo
-  );
-
-  const chartData = pastTwoMonthsMeasures.map((measure) => ({
+  const chartData = sortedMeasures.map((measure) => ({
     x: new Date(measure.date).toISOString().slice(0, 10), // Extract and format date
     y: measure.value,
     Exercício: measure.exercise ? "Sim" : "Não",
@@ -49,6 +41,7 @@ const ChartsPage: React.FC = () => {
     Medicamentos: measure.medication ? "Sim" : "Não",
     Horário: measure?.date && format(new Date(measure?.date), "HH:mm"),
     Valor: `${measure.value} mg/dL`,
+    Tendência: measure?.trend && TrendTypeLabels[measure.trend],
   }));
 
   const config = {
@@ -56,10 +49,15 @@ const ChartsPage: React.FC = () => {
     xField: "date",
     yField: "value",
     xAxis: {
+      text: "Data",
       type: "time", // Set X axis type to time
     },
     height: 400,
     point: { size: 5, shape: "diamond" },
+    slider: {
+      start: 0.1,
+      end: 0.5,
+    },
     tooltip: {
       fields: [
         "Valor",
@@ -68,49 +66,18 @@ const ChartsPage: React.FC = () => {
         "Jejum",
         "Estresse",
         "Medicamentos",
+        "Tendência",
       ],
-      // customContent: (title: any, items: any[]) => {
-      //   const dataItem = items[0]; // Assuming only one data item for simplicity
-      //   const measure = dataItem?.data;
-
-      //   return `
-      //     <div style="background-color: rgba(0, 0, 0, 0.8); color: white; padding: 10px; border-radius: 5px;">
-      //       <p style="font-size: 16px; font-weight: bold; margin-bottom: 5px;">
-      //         Data: ${
-      //           measure?.date &&
-      //           format(new Date(measure?.date), "dd/MM/yy | HH:mm")
-      //         }
-      //       </p>
-      //       <p style="margin: 3px 0;">Valor: ${measure?.y}</p>
-      //       <p style="margin: 3px 0;">Jejum: ${
-      //         measure?.fasting ? "Sim" : "Não"
-      //       }</p>
-      //       <p style="margin: 3px 0;">Exercício: ${
-      //         measure?.exercise ? "Sim" : "Não"
-      //       }</p>
-      //       <p style="margin: 3px 0;">Estresse: ${
-      //         measure?.stress ? "Sim" : "Não"
-      //       }</p>
-      //       <p style="margin: 3px 0;">Medicamento: ${
-      //         measure?.medication ? "Sim" : "Não"
-      //       }</p>
-      //     </div>
-      //   `;
-      // },
     },
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Line Chart Example</h1>
-      <DynamicLineChart
-        {...config}
-        data={chartData}
-        xField="x"
-        yField="y"
-        animation={false}
-      />
-    </div>
+    <main className="flex flex-col items-center min-h-screen px-4 py-8 md:px-12 md:py-8">
+      <h1 className="text-xl">Gráfico de medidas (últimos 2 meses)</h1>
+      <div className="w-full mt-8 px-12">
+        <DynamicLineChart {...config} data={chartData} xField="x" yField="y" />
+      </div>
+    </main>
   );
 };
 
