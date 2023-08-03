@@ -30,10 +30,8 @@ const ChartsPage: React.FC = () => {
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
   );
 
-  // Calculate the date two months ago from today
-
   const chartData = sortedMeasures.map((measure) => ({
-    x: new Date(measure.date).toISOString().slice(0, 10), // Extract and format date
+    x: new Date(measure.date).toISOString().slice(0, 10),
     y: measure.value,
     Exercício: measure.exercise ? "Sim" : "Não",
     Jejum: measure.fasting ? "Sim" : "Não",
@@ -50,7 +48,7 @@ const ChartsPage: React.FC = () => {
     yField: "value",
     xAxis: {
       text: "Data",
-      type: "time", // Set X axis type to time
+      type: "time",
     },
     height: 400,
     point: { size: 5, shape: "diamond" },
@@ -73,7 +71,7 @@ const ChartsPage: React.FC = () => {
 
   return (
     <main className="flex flex-col items-center min-h-screen px-4 py-8 md:px-12 md:py-8">
-      <h1 className="text-xl">Gráfico de medidas (últimos 2 meses)</h1>
+      <h1 className="text-xl">Gráfico de medidas</h1>
       <div className="w-full mt-8 px-12">
         <DynamicLineChart {...config} data={chartData} xField="x" yField="y" />
       </div>
