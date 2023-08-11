@@ -1,4 +1,4 @@
-import { Measure } from "@/types/Measure";
+import { Measure, TrendTypeLabels } from "@/types/Measure";
 import { Table } from "antd";
 import { ColumnProps } from "antd/es/table/Column";
 import { format } from "date-fns";
@@ -75,6 +75,14 @@ const MeasureTable = ({ measures }: MeasureTableProps) => {
       key: "medication",
       render: (measure: Measure) => (
         <span>{getBooleanLabel(measure.medication)}</span>
+      ),
+    },
+    {
+      title: "Tendência",
+      align: "center",
+      key: "trend",
+      render: (measure: Measure) => (
+        <span>{TrendTypeLabels[measure.trend!]}</span>
       ),
     },
   ];

@@ -53,8 +53,8 @@ const ChartsPage: React.FC = () => {
     height: 400,
     point: { size: 5, shape: "diamond" },
     slider: {
-      start: 0.1,
-      end: 0.5,
+      start: 0.5,
+      end: 1,
     },
     tooltip: {
       fields: [
