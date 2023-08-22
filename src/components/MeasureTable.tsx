@@ -106,7 +106,7 @@ const MeasureTable = ({ measures }: MeasureTableProps) => {
 
   return (
     <Table
-      columns={screenWidth && screenWidth < 560 ? columnsMobile : columns}
+      columns={screenWidth && screenWidth < 640 ? columnsMobile : columns}
       dataSource={sortedMeasures}
       className="w-[90vw]"
       key="table"

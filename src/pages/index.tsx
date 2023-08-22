@@ -41,7 +41,7 @@ export default function Home() {
           isLoading={isLoading}
         />
       </Modal>
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center w-full">
         <h1 className="text-xl mb-4">Medidas</h1>
         <MeasureTable measures={measures} />
       </div>
